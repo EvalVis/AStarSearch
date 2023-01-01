@@ -8,26 +8,29 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-public class AStarSolver {
+public class AStarSolver<T> {
 
-    private final PriorityQueue<AStarObject> frontier;
-    private final Set<AStarObject> explored = new HashSet<>();
-    private final HashMap<AStarObject, Integer> costs = new HashMap<>();
-    private final AStarObject startingObject;
+    private final PriorityQueue<AStarObject<T>> frontier;
+    private final Set<AStarObject<T>> explored = new HashSet<>();
+    private final HashMap<AStarObject<T>, Integer> costs = new HashMap<>();
+    private final AStarObject<T> startingObject;
 
-    public AStarSolver(AStarObject startingObject, AStarVariant aStarVariant) {
+    public AStarSolver(AStarObject<T> startingObject, AStarVariant<T> aStarVariant) {
         this.startingObject = startingObject;
         frontier = new PriorityQueue<>(aStarVariant);
     }
 
-    public void solve() {
+    public String solve() {
         frontier.add(startingObject);
         costs.put(startingObject, 0);
         while(!frontier.isEmpty()) {
-            AStarObject current = frontier.remove();
-            isSolved(current);
-            Set<AStarObject> neighbours = current.getNeighbours();
-            for(AStarObject neighbour : neighbours) {
+            AStarObject<T> current = frontier.remove();
+            if(current.isSolved()) {
+                System.out.println(current);
+                return current.getMoveSequence();
+            }
+            Set<AStarObject<T>> neighbours = current.getNeighbours();
+            for(AStarObject<T> neighbour : neighbours) {
                 if(frontier.contains(neighbour) && costs.get(neighbour) <= current.getGValue()) {
                     continue;
                 }
@@ -42,17 +45,7 @@ public class AStarSolver {
             }
             explored.add(current);
         }
-    }
-
-    private boolean isSolved(AStarObject current) {
-        if(current.isSolved()) {
-            System.out.println("SOLVED");
-            frontier.clear();
-            explored.clear();
-            costs.clear();
-            return true;
-        }
-        return false;
+        return null;
     }
 
 }

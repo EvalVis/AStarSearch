@@ -2,8 +2,8 @@ package ev.projects.variants.weightedAStar.weights.timed;
 
 public class LinearTimedLFunction extends TimedLFunction {
 
-    private double a;
-    private double b;
+    private final double a;
+    private final double b;
 
     public LinearTimedLFunction(long startTimeNano, double a, double b) {
         super(startTimeNano);

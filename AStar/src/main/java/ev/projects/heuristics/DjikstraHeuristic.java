@@ -1,8 +1,8 @@
 package ev.projects.heuristics;
 
-public class DjikstraHeuristic extends AStarHeuristic {
+public class DjikstraHeuristic<T> extends AStarHeuristic<T> {
     @Override
-    public int calculateValue(AStarObject aStarObject) {
+    public int calculateValue(AStarObject<T> aStarObject) {
         return 0;
     }
 }
