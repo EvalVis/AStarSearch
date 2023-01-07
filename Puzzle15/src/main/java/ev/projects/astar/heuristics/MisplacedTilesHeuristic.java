@@ -5,17 +5,17 @@ import ev.projects.heuristics.AStarObject;
 
 import java.util.List;
 
-public class MisplacedTilesHeuristic extends AStarHeuristic<Integer> {
+public class MisplacedTilesHeuristic extends AStarHeuristic<int[]> {
     @Override
-    public int calculateValue(AStarObject<Integer> aStarObject) {
+    public int calculateValue(AStarObject<int[]> aStarObject) {
         int misplacedTilesCount = 0;
-        List<Integer> cells = aStarObject.getCurrentStateData();
-        for(int i = 0; i < cells.size() - 1; i++) {
-            if(cells.get(i) != (i + 1)) {
+        int[] cells = aStarObject.getCurrentStateData();
+        for(int i = 0; i < cells.length - 1; i++) {
+            if(cells[i] != (i + 1)) {
                 misplacedTilesCount++;
             }
         }
-        if(cells.get(cells.size() - 1) != -1) {
+        if(cells[cells.length - 1] != -1) {
             misplacedTilesCount++;
         }
         return misplacedTilesCount;

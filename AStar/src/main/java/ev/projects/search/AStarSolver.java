@@ -27,7 +27,7 @@ public class AStarSolver<T> {
             AStarObject<T> current = frontier.remove();
             if(current.isSolved()) {
                 System.out.println(current);
-                return current.getMoveSequence();
+                return current.getSequenceOfMoves();
             }
             Set<AStarObject<T>> neighbours = current.getNeighbours();
             for(AStarObject<T> neighbour : neighbours) {

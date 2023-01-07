@@ -3,30 +3,29 @@ package ev.projects.astar.aStarObjects;
 import ev.projects.heuristics.AStarObject;
 import ev.projects.puzzle.BlankCell;
 import ev.projects.puzzle.Puzzle;
+import ev.projects.search.MoveSequence;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class PuzzleAStarObject extends AStarObject<Integer> {
+public class PuzzleAStarObject extends AStarObject<int[]> {
 
     private final Puzzle puzzle;
 
-    public PuzzleAStarObject(AStarObject<Integer> parent, String move, Puzzle puzzle) {
-        super(parent, move);
+    public PuzzleAStarObject(MoveSequence moveSequence, int gValue, Puzzle puzzle) {
+        super(moveSequence, gValue);
         this.puzzle = puzzle;
     }
 
     public PuzzleAStarObject(Puzzle puzzle) {
-        super(null, "START");
+        super(new MoveSequence(null, "START"), 0);
         this.puzzle = puzzle;
     }
 
     @Override
-    public List<Integer> getCurrentStateData() {
-        return Arrays.stream(puzzle.getCells()).boxed().collect(Collectors.toList());
+    public int[] getCurrentStateData() {
+        return puzzle.getCells();
     }
 
     @Override
@@ -35,31 +34,36 @@ public class PuzzleAStarObject extends AStarObject<Integer> {
     }
 
     @Override
-    public Set<AStarObject<Integer>> getNeighbours() {
-        Set<AStarObject<Integer>> neighbours = new HashSet<>();
+    public Set<AStarObject<int[]>> getNeighbours() {
+        Set<AStarObject<int[]>> neighbours = new HashSet<>();
         BlankCell blankCell = puzzle.getBlankCell();
         int[] cells = puzzle.getCells();
         if(blankCell.canMoveFromTop(cells)) {
             Puzzle copiedPuzzle = new Puzzle(puzzle);
             int numberMoved = copiedPuzzle.getBlankCell().moveFromTop(copiedPuzzle.getCells());
-            neighbours.add(new PuzzleAStarObject(this, Integer.toString(numberMoved), copiedPuzzle));
+            addNeighbour(neighbours, numberMoved, copiedPuzzle);
         }
         if(blankCell.canMoveFromBottom(cells)) {
             Puzzle copiedPuzzle = new Puzzle(puzzle);
             int numberMoved = copiedPuzzle.getBlankCell().moveFromBottom(copiedPuzzle.getCells());
-            neighbours.add(new PuzzleAStarObject(this, Integer.toString(numberMoved), copiedPuzzle));
+            addNeighbour(neighbours, numberMoved, copiedPuzzle);
         }
         if(blankCell.canMoveFromLeft(cells)) {
             Puzzle copiedPuzzle = new Puzzle(puzzle);
             int numberMoved = copiedPuzzle.getBlankCell().moveFromLeft(copiedPuzzle.getCells());
-            neighbours.add(new PuzzleAStarObject(this, Integer.toString(numberMoved), copiedPuzzle));
+            addNeighbour(neighbours, numberMoved, copiedPuzzle);
         }
         if(blankCell.canMoveFromRight(cells)) {
             Puzzle copiedPuzzle = new Puzzle(puzzle);
             int numberMoved = copiedPuzzle.getBlankCell().moveFromRight(copiedPuzzle.getCells());
-            neighbours.add(new PuzzleAStarObject(this, Integer.toString(numberMoved), copiedPuzzle));
+            addNeighbour(neighbours, numberMoved, copiedPuzzle);
         }
         return neighbours;
+    }
+
+    private void addNeighbour(Set<AStarObject<int[]>> neighbours, int numberMoved, Puzzle copiedPuzzle) {
+        neighbours.add(new PuzzleAStarObject(new MoveSequence(moveSequence,
+                Integer.toString(numberMoved)), gValue + 1, copiedPuzzle));
     }
 
     @Override

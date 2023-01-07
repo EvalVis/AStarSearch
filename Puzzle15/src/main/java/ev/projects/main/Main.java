@@ -17,8 +17,8 @@ public class Main {
         //Puzzle puzzle = new Puzzle("7,3,1,5,6,2,4,8,-1");
         System.out.println(puzzle);
         PuzzleAStarObject puzzleAStarObject = new PuzzleAStarObject(puzzle);
-        AStarSolver<Integer> solver = new AStarSolver<Integer>(puzzleAStarObject,
-                new WeightedAStarVariant<>(new ManhattanDistanceHeuristic(), new ConstantLFunction(0.6)));
+        AStarSolver<int[]> solver = new AStarSolver<>(puzzleAStarObject,
+                new WeightedAStarVariant<>(new ManhattanDistanceHeuristic(), new ConstantLFunction(1)));
         String solution = solver.solve();
         System.out.println(solution);
     }

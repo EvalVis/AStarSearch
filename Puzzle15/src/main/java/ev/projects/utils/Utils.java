@@ -33,7 +33,7 @@ public class Utils {
         return inversionCount;
     }
 
-    private static boolean canIncreaseInversionCount(int currentPosition, int nextPosition, int array[]) {
+    private static boolean canIncreaseInversionCount(int currentPosition, int nextPosition, int[] array) {
         if(array[currentPosition] == BlankCell.blankCellMarker ||array[nextPosition] == BlankCell.blankCellMarker) {
             return false;
         }
@@ -68,8 +68,8 @@ public class Utils {
 
     @Getter
     public static class StartEndCoordinates {
-        private int startX;
-        private int startY;
+        private final int startX;
+        private final int startY;
         private int endX;
         private int endY;
 
