@@ -8,6 +8,7 @@
   <modules>
     <module>AStar</module>
     <module>Puzzle15</module>
+    <module>RushHour</module>
   </modules>
   <packaging>pom</packaging>
 
