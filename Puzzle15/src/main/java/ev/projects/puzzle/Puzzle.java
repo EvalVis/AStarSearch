@@ -75,6 +75,19 @@ public class Puzzle {
         return inversionCount % 2 == 0;
     }
 
+    public String toStringSeparateWithCommas() {
+        if(cells.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int cell : cells) {
+            sb.append(cell);
+            sb.append(",");
+        }
+        String result = sb.toString();
+        return result.substring(0, result.length() - 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
