@@ -9,6 +9,8 @@
     <module>AStar</module>
     <module>Puzzle15</module>
     <module>RushHour</module>
+    <module>Maze</module>
+    <module>Maze</module>
   </modules>
   <packaging>pom</packaging>
 
