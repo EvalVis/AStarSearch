@@ -1,7 +1,7 @@
 package ev.projects.heuristics;
 
-public abstract class AStarHeuristic<T> {
+public interface AStarHeuristic<T> {
 
-    public abstract int calculateValue(AStarObject<T> aStarObject);
+    int calculateValue(AStarObject<T> aStarObject);
 
 }

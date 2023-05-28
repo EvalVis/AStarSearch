@@ -4,7 +4,7 @@ import ev.projects.heuristics.AStarHeuristic;
 import ev.projects.heuristics.AStarObject;
 import ev.projects.maze.Maze;
 
-public class ManhattanDistanceHeuristic extends AStarHeuristic<Maze> {
+public class ManhattanDistanceHeuristic implements AStarHeuristic<Maze> {
     @Override
     public int calculateValue(AStarObject<Maze> aStarObject) {
         Maze maze = aStarObject.getCurrentStateData();

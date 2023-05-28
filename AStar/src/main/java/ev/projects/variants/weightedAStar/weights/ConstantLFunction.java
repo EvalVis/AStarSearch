@@ -7,7 +7,7 @@ public class ConstantLFunction extends LFunction {
     private double l;
 
     @Override
-    protected double calculateL() {
+    public double calculateL() {
         return l;
     }
 

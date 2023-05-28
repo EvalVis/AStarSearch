@@ -13,7 +13,7 @@ public class QuadraticTimedLFunction extends TimedLFunction {
     }
 
     @Override
-    protected double calculateL() {
+    public double calculateL() {
         int secondsPassed = getSecondsPassed();
         return a * secondsPassed * secondsPassed + b * secondsPassed + c;
     }

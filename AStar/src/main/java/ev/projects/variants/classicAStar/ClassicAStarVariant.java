@@ -12,8 +12,11 @@ public class ClassicAStarVariant<T> extends AStarVariant<T> {
 
     @Override
     public int compare(AStarObject<T> aso1, AStarObject<T> aso2) {
-        double f1 = aso1.getGValue() + heuristic.calculateValue(aso1);
-        double f2 = aso2.getGValue() + heuristic.calculateValue(aso2);
-        return Double.compare(f1, f2);
+        return Double.compare(getFValue(aso1), getFValue(aso2));
+    }
+
+    @Override
+    public double getFValue(AStarObject<T> aso) {
+        return aso.getGValue() + heuristic.calculateValue(aso);
     }
 }

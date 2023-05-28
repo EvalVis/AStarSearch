@@ -11,5 +11,4 @@ public abstract class Obstacle {
     protected Cell cell;
     public abstract boolean noObstacle();
 
-
 }

@@ -4,7 +4,7 @@ import ev.projects.heuristics.AStarHeuristic;
 import ev.projects.heuristics.AStarObject;
 import ev.projects.trafficMap.TrafficMap;
 
-public class ExitBlockingCarsCountHeuristic extends AStarHeuristic<TrafficMap> {
+public class ExitBlockingCarsCountHeuristic implements AStarHeuristic<TrafficMap> {
 
     @Override
     public int calculateValue(AStarObject<TrafficMap> aStarObject) {

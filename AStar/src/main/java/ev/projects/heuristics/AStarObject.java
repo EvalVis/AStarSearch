@@ -7,6 +7,7 @@ import java.util.Set;
 public abstract class AStarObject<T> {
     @Getter
     protected final int gValue;
+    @Getter
     protected final MoveSequence moveSequence;
 
     public AStarObject(MoveSequence moveSequence, int gValue) {
@@ -26,6 +27,4 @@ public abstract class AStarObject<T> {
 
     public abstract boolean equals(Object other);
     public abstract int hashCode();
-
-
 }

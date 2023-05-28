@@ -16,10 +16,12 @@ public class WeightedAStarVariant<T> extends AStarVariant<T> {
 
     @Override
     public int compare(AStarObject<T> aso1, AStarObject<T> aso2) {
-        double l = lFunction.getL();
-        double f1 = (1 - l) * aso1.getGValue() + l * heuristic.calculateValue(aso1);
-        double f2 = (1 - l) * aso2.getGValue() + l * heuristic.calculateValue(aso2);
-        return Double.compare(f1, f2);
+        return Double.compare(getFValue(aso1), getFValue(aso2));
+    }
+
+    @Override
+    public double getFValue(AStarObject<T> aso) {
+        return aso.getGValue() + lFunction.calculateL() * heuristic.calculateValue(aso);
     }
 
 }

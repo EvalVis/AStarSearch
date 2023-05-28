@@ -4,7 +4,7 @@ import ev.projects.heuristics.AStarHeuristic;
 import ev.projects.heuristics.AStarObject;
 import ev.projects.utils.Utils;
 
-public class ManhattanDistanceHeuristic extends AStarHeuristic<int[]> {
+public class ManhattanDistanceHeuristic implements AStarHeuristic<int[]> {
 
     @Override
     public int calculateValue(AStarObject<int[]> aStarObject) {

@@ -12,7 +12,7 @@ public class LinearTimedLFunction extends TimedLFunction {
     }
 
     @Override
-    protected double calculateL() {
+    public double calculateL() {
         return a * getSecondsPassed() + b;
     }
 
