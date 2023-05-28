@@ -4,6 +4,8 @@ import ev.projects.obstacles.Obstacle;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 public class Cell {
@@ -44,4 +46,22 @@ public class Cell {
         return occupant != null ? occupant.toString() : "-";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        if(occupant == null) {
+            return x == cell.x && y == cell.y && cell.occupant == null;
+        }
+        if(cell.occupant == null) {
+            return false;
+        }
+        return x == cell.x && y == cell.y && Objects.equals(occupant, cell.occupant);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(occupant, x, y);
+    }
 }

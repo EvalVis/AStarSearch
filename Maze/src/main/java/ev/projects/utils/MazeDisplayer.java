@@ -25,7 +25,7 @@ public class MazeDisplayer {
         MoveSequence parent = mazeAStarObject.getMoveSequence();
         while(parent != null) {
             if(currentPoint.equals(maze.getEndPoint())) {
-                image.setRGB(currentPoint.getX(), currentPoint.getY(), Color.YELLOW.getRGB());
+                image.setRGB(currentPoint.getX(), currentPoint.getY(), Color.GREEN.getRGB());
             }
             else {
                 image.setRGB(currentPoint.getX(), currentPoint.getY(), Color.RED.getRGB());
@@ -34,7 +34,7 @@ public class MazeDisplayer {
             parent = parent.getParent();
         }
         image.setRGB(currentPoint.getX(), currentPoint.getY(), Color.GREEN.getRGB());
-        File tempFile = new File(Files.createTempFile("solution", ".png").toUri());
+        File tempFile = new File(Files.createTempFile("solution_" + mazeAStarObject.getGValue() + "gValue_", ".png").toUri());
         ImageIO.write(
                 image, "PNG", tempFile);
         Desktop.getDesktop().open(tempFile);
