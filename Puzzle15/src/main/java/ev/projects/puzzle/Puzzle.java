@@ -74,7 +74,7 @@ public class Puzzle {
     }
 
     public boolean isSolvable() {
-        int inversionCount = Utils.getInversions(cells).getValue0();
+        int inversionCount = Utils.getInversions(cells).getKey();
         if(size % 2 == 0 && Utils.blankCellIsOnEvenRow(blankCell, size)) {
             return inversionCount % 2 != 0;
         }

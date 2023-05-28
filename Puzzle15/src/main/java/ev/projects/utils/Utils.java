@@ -2,11 +2,11 @@ package ev.projects.utils;
 
 import ev.projects.puzzle.BlankCell;
 import lombok.Getter;
-import org.javatuples.Pair;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 public class Utils {
 
-    public static Pair<Integer, Integer> getInversions(int[] array)
+    public static ImmutablePair<Integer, Integer> getInversions(int[] array)
     {
         int puzzleHeight = (int) Math.sqrt(array.length);
         int horizontalInversionCount = 0;
@@ -26,7 +26,7 @@ public class Utils {
                 }
             }
         }
-        return Pair.with(horizontalInversionCount, verticalInversionCount);
+        return new ImmutablePair<>(horizontalInversionCount, verticalInversionCount);
     }
 
     private static int getVerticalPosition(int index, int puzzleHeight) {
