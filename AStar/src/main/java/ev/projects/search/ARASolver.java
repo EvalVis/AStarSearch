@@ -2,13 +2,9 @@ package ev.projects.search;
 
 import ev.projects.heuristics.AStarObject;
 import ev.projects.variants.ARAVariant;
-import lombok.Getter;
 
 import java.util.*;
-import java.util.function.Supplier;
 
-// decrease change of epsilon when it is small.
-// calculate time drop between epsilon.
 public class ARASolver<T> {
     private final AStarObject<T> startObject;
     private final PriorityQueue<AStarObject<T>> open;
@@ -16,22 +12,22 @@ public class ARASolver<T> {
     private final Set<AStarObject<T>> incons = new HashSet<>();
     private final HashMap<AStarObject<T>, Integer> costs = new HashMap<>();
 
-    @Getter
     private final List<AStarObject<T>> solutions = new ArrayList<>();
+    private final ARAVariant<T> araVariant;
 
-    private final Supplier<Boolean> canImprove;
+    private int bestSolutionF = Integer.MAX_VALUE;
 
     public ARASolver(AStarObject<T> startObject, ARAVariant<T> araVariant) {
         this.startObject = startObject;
         this.open = new PriorityQueue<>(araVariant);
-        canImprove = araVariant::increasePreciseness;
+        this.araVariant = araVariant;
     }
 
     public void solve() {
         costs.put(startObject, 0);
         open.add(startObject);
         improvePath();
-        while(canImprove.get()) {
+        while(araVariant.increasePreciseness()) {
             moveFromInconsToOpen();
             updateOpen();
             closed.clear();
@@ -52,18 +48,17 @@ public class ARASolver<T> {
             open.remove(aso);
             open.add(aso);
         }
-        incons.clear(); //clear incons?
+        incons.clear();
     }
 
     private void improvePath() {
-        while(!open.isEmpty()) {
+        while(!open.isEmpty() && araVariant.getFValue(open.peek()) < bestSolutionF) {
             AStarObject<T> min = open.remove();
             if(min.isSolved()) {
-                open.add(min);
+                bestSolutionF = min.getGValue();
                 addSolution(min);
                 break;
             }
-            open.remove(min);
             closed.remove(min);
             closed.add(min);
             for(AStarObject<T> neighbour : min.getNeighbours()) {
@@ -91,9 +86,8 @@ public class ARASolver<T> {
                 solution -> solution.getSequenceOfMoves().equals(candidateSolution.getSequenceOfMoves()))
         ) {
             solutions.add(candidateSolution);
-            System.out.println(candidateSolution.getSequenceOfMoves());
+            System.out.println("NEW solution at epsilon: " + araVariant.getEpsilon());
+            System.out.println("G:" + candidateSolution.getGValue() + ", " + candidateSolution.getSequenceOfMoves());
         }
-
     }
-
 }

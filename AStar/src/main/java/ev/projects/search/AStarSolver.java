@@ -20,14 +20,13 @@ public class AStarSolver<T> {
         frontier = new PriorityQueue<>(aStarVariant);
     }
 
-    public String solve() {
+    public AStarObject<T> solve() {
         frontier.add(startingObject);
         costs.put(startingObject, 0);
         while(!frontier.isEmpty()) {
             AStarObject<T> current = frontier.remove();
             if(current.isSolved()) {
-                System.out.println(current);
-                return current.getSequenceOfMoves();
+                return current;
             }
             Set<AStarObject<T>> neighbours = current.getNeighbours();
             for(AStarObject<T> neighbour : neighbours) {
