@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Puzzle {
 
@@ -34,7 +35,12 @@ public class Puzzle {
         String[] parts = puzzle.split(",");
         size = (int) Math.sqrt(parts.length);
         cells = new int[size * size];
-        blankCell = new BlankCell(size * size - 1);
+        blankCell = new BlankCell(
+                IntStream.range(0, parts.length)
+                        .filter(i-> parts[i].equals("-1"))
+                        .findFirst()
+                        .getAsInt()
+        );
         for(int i = 0; i < parts.length; i++) {
             cells[i] = Integer.parseInt(parts[i]);
         }
@@ -68,7 +74,7 @@ public class Puzzle {
     }
 
     public boolean isSolvable() {
-        int inversionCount = Utils.getInversionCountLeftRight(cells);
+        int inversionCount = Utils.getInversions(cells).getValue0();
         if(size % 2 == 0 && Utils.blankCellIsOnEvenRow(blankCell, size)) {
             return inversionCount % 2 != 0;
         }

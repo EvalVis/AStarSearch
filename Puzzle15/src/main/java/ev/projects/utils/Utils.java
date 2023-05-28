@@ -2,46 +2,41 @@ package ev.projects.utils;
 
 import ev.projects.puzzle.BlankCell;
 import lombok.Getter;
+import org.javatuples.Pair;
 
 public class Utils {
 
-    public static int getInversionCountLeftRight(int[] array)
+    public static Pair<Integer, Integer> getInversions(int[] array)
     {
-        int inversionCount = 0;
+        int puzzleHeight = (int) Math.sqrt(array.length);
+        int horizontalInversionCount = 0;
+        int verticalInversionCount = 0;
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = i + 1; j < array.length; j++) {
                 if(canIncreaseInversionCount(i, j, array)) {
-                    inversionCount++;
+                    horizontalInversionCount++;
+                }
+                if(canIncreaseInversionCount(
+                        getVerticalPosition(i, puzzleHeight),
+                        getVerticalPosition(j, puzzleHeight),
+                        array
+                )
+                ) {
+                    verticalInversionCount++;
                 }
             }
         }
-        return inversionCount;
+        return Pair.with(horizontalInversionCount, verticalInversionCount);
     }
 
-    public static int getInversionCountTopBottom(int[] array)
-    {
-        int inversionCount = 0;
-        for (int i = 0; i < array.length - 1; i++) {
-            int currentPosition = getTopBottomPosition(i, (int) Math.sqrt(array.length));
-            for (int j = i + 1; j < array.length; j++) {
-                int nextPosition = getTopBottomPosition(j, (int) Math.sqrt(array.length));
-                if(canIncreaseInversionCount(currentPosition, nextPosition, array)) {
-                    inversionCount++;
-                }
-            }
-        }
-        return inversionCount;
+    private static int getVerticalPosition(int index, int puzzleHeight) {
+        return (index / puzzleHeight) + (puzzleHeight * (index % puzzleHeight));
     }
 
-    private static boolean canIncreaseInversionCount(int currentPosition, int nextPosition, int[] array) {
-        if(array[currentPosition] == BlankCell.blankCellMarker ||array[nextPosition] == BlankCell.blankCellMarker) {
-            return false;
-        }
-        return array[currentPosition] > array[nextPosition];
-    }
-
-    private static int getTopBottomPosition(int currentLeftRightPosition, int lineSize) {
-        return (currentLeftRightPosition / lineSize) + lineSize * (currentLeftRightPosition % lineSize);
+    public static boolean canIncreaseInversionCount(int firstPosition, int secondPosition, int[] array) {
+        return array[firstPosition] != BlankCell.blankCellMarker
+                && array[secondPosition] != BlankCell.blankCellMarker
+                && array[firstPosition] > array[secondPosition];
     }
 
     // Counted from bottom row

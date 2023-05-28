@@ -57,4 +57,5 @@ public abstract class AStarVariant<T> implements Comparator<AStarObject<T>> {
         return Comparator.super.thenComparingDouble(keyExtractor);
     }
 
+    public abstract double getFValue(AStarObject<T> aso);
 }

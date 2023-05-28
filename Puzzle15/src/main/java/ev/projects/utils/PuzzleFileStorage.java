@@ -42,8 +42,7 @@ public class PuzzleFileStorage {
     public static List<Puzzle> readPuzzlesFromFile(String filePathWithFileName) {
         List<Puzzle> puzzles = new ArrayList<>();
         File readFile = new File(filePathWithFileName);
-        try {
-            Scanner fileReader = new Scanner(readFile);
+        try(Scanner fileReader = new Scanner(readFile)) {
             while(fileReader.hasNextLine()) {
                 Puzzle readPuzzle = new Puzzle(fileReader.nextLine());
                 puzzles.add(readPuzzle);

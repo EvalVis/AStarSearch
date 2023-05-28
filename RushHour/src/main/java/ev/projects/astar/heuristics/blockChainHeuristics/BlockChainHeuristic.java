@@ -11,10 +11,17 @@ import ev.projects.trafficMap.TrafficMap;
 
 import java.util.*;
 
-public class BlockChainHeuristic extends AStarHeuristic<TrafficMap> {
+public class BlockChainHeuristic implements AStarHeuristic<TrafficMap> {
+
+    private final int maxMoveCount;
+
+    public BlockChainHeuristic(int maxMoveCount) {
+        this.maxMoveCount = maxMoveCount;
+    }
+
     @Override
     public int calculateValue(AStarObject<TrafficMap> aStarObject) {
-        return new BlockChainHeuristicCalculator(aStarObject.getCurrentStateData()).calculateHeuristic();
+        return new BlockChainHeuristicCalculator(aStarObject.getCurrentStateData(), maxMoveCount).calculateHeuristic();
     }
 
     private class BlockChainHeuristicCalculator {
@@ -24,9 +31,11 @@ public class BlockChainHeuristic extends AStarHeuristic<TrafficMap> {
         private final HashMap<Car, Integer> backwardMax = new HashMap<>();
 
         private final TrafficMap trafficMap;
+        private final int maxMoveCount;
 
-        public BlockChainHeuristicCalculator(TrafficMap trafficMap) {
+        public BlockChainHeuristicCalculator(TrafficMap trafficMap, int maxMoveCount) {
             this.trafficMap = trafficMap;
+            this.maxMoveCount = maxMoveCount;
         }
 
         private int calculateHeuristic() {
@@ -70,7 +79,7 @@ public class BlockChainHeuristic extends AStarHeuristic<TrafficMap> {
             }
             int moveCount = 0;
             Node currentNode = clearNodes.get(0);
-            while(currentNode != null && currentNode.getParent() != null) {
+            while(currentNode != null && currentNode.getParent() != null && moveCount < maxMoveCount) {
                 moveCount++;
                 currentNode = currentNode.getParentNode();
             }
