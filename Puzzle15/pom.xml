@@ -1,27 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <artifactId>AStarSearch</artifactId>
-        <groupId>ev.projects</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>com.programmersdiary</groupId>
+        <artifactId>a-star-search</artifactId>
+        <version>1.0.0</version>
     </parent>
+
+    <artifactId>puzzle15</artifactId>
+
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>ev.projects</groupId>
-            <artifactId>AStar</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+            <groupId>com.programmersdiary</groupId>
+            <artifactId>a-star</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <build>
@@ -36,8 +30,4 @@
             </plugin>
         </plugins>
     </build>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>Puzzle15</artifactId>
-    <name>Archetype - Puzzle15</name>
-    <url>http://maven.apache.org</url>
 </project>
