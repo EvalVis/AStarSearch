@@ -218,5 +218,3 @@ Also, you can implementations of more A* variants.
 ## 📄 License
 
 Please view `LICENSE` file.
-
-hello from ai mcp
